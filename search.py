@@ -15,28 +15,46 @@ from constants import G, S
 #   Breadth first search of neighbors, until G is found
 #     tracking visited nodes by whether or not dest:source combination has occured before
 def bfs(grid, start, goal):
-  length = len(grid)
   q = collections.deque()
-  visited = { start: 'START' }
-  q.append(start)
-  while len(q) > 0:
-    current = q.popleft()
-    for next in neighbors(current, -1, length):
-      if visited.get(next):
-        continue
-      q.append(next)
-      visited[next] = current
-      if grid[next[0]][next[1]] == G:
-        return visited
+  return no_cost_search(
+    grid,
+    start,
+    goal,
+    lambda node: q.append(node),
+    lambda: q.popleft(),
+    lambda: len(q) == 0
+  )
 
-def dfs():
-  pass
+def dfs(grid, start, goal):
+  s = collections.deque()
+  return no_cost_search(
+    grid,
+    start,
+    goal,
+    lambda node: s.append(node),
+    lambda: s.pop(),
+    lambda: len(s) == 0
+  )
 
 def ucs():
   pass
 
 def a_star():
   pass
+
+def no_cost_search(grid, start, goal, enter, exit, is_empty):
+  length = len(grid)
+  visited = { start: 'START' }
+  enter(start)
+  while not is_empty():
+    current = exit()
+    for next in neighbors(current, -1, length):
+      if visited.get(next):
+        continue
+      enter(next)
+      visited[next] = current
+      if grid[next[0]][next[1]] == G:
+        return visited
 
 
 def neighbors(coordinate, low, high):
