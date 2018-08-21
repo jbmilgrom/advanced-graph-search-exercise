@@ -15,25 +15,25 @@ from constants import G, S
 #   Breadth first search of neighbors, until G is found
 #     tracking visited nodes by whether or not dest:source combination has occured before
 def bfs(grid, start, goal):
-  q = collections.deque()
+  queue = collections.deque()
   return no_cost_search(
     grid,
     start,
     goal,
-    lambda node: q.append(node),
-    lambda: q.popleft(),
-    lambda: len(q) == 0
+    lambda node: queue.append(node),
+    lambda: queue.popleft(),
+    lambda: len(queue) == 0
   )
 
 def dfs(grid, start, goal):
-  s = collections.deque()
+  stack = collections.deque()
   return no_cost_search(
     grid,
     start,
     goal,
-    lambda node: s.append(node),
-    lambda: s.pop(),
-    lambda: len(s) == 0
+    lambda node: stack.append(node),
+    lambda: stack.pop(),
+    lambda: len(stack) == 0
   )
 
 def ucs():
