@@ -1,5 +1,5 @@
 import collections
-from constants import G, S
+from constants import G, S, COSTS
 
 
 # Understanding:
@@ -36,8 +36,20 @@ def dfs(grid, start, goal):
     lambda: len(stack) == 0
   )
 
-def ucs():
-  pass
+def ucs(grid, start, goal):
+  length = len(grid)
+  visited = { start: 'START' }
+  pqueue = PriorityQueue()
+  pqueue.insert((0, start))
+  while not pqueue.is_empty():
+    cost, current = pqueue.next()
+    if grid[current[0]][current[1]] == G:
+        return visited
+    for next in neighbors(current, -1, length):
+      if visited.get(next):
+        continue
+      pqueue.insert((cost + COSTS[grid[next[0]][next[1]]], next))
+      visited[next] = current
 
 def a_star():
   pass
@@ -56,9 +68,31 @@ def no_cost_search(grid, start, goal, enter, exit, is_empty):
       if grid[next[0]][next[1]] == G:
         return visited
 
-
 def neighbors(coordinate, low, high):
   x, y = coordinate
   change = [ (0, 1), (1, 0), (-1, 0), (0, -1) ]
   return [ (x + i, y + j) for i, j in change if x + i < high and x + i > low and y + j < high and y + j > low ]
+
+
+class PriorityQueue:
+
+  def __init__(self):
+    self._high_to_low = [] # ordered from high to low so easier to pop off low from end
+
+  def insert(self, pair):
+    i = 0
+    # TODO: divide and conquer to improve perforamce
+    while i < len(self._high_to_low):
+      if pair[0] > self._high_to_low[i][0]:
+        self._high_to_low.insert(i, pair)
+        return
+      i += 1
+    self._high_to_low.append(pair)
+
+  def next(self):
+    return self._high_to_low.pop()
+
+  def is_empty(self):
+    return len(self._high_to_low) == 0
+
 

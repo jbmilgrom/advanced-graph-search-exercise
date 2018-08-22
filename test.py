@@ -83,6 +83,6 @@ if __name__ == "__main__":
     # Run each algorithm and visualize the result
     print(visualize('BFS', grid, goal, bfs(grid, start, goal)))
     print(visualize('DFS', grid, goal, dfs(grid, start, goal)))
-    # print(visualize('Dijkstra’s algorithm', grid, goal, ucs(grid, start, goal)))
+    print(visualize('Dijkstra’s algorithm', grid, goal, ucs(grid, start, goal)))
     # print(visualize('A* search', grid, goal, a_star(grid, start, goal)))
 
