@@ -52,7 +52,7 @@ def ucs(grid, start, goal):
       pqueue.insert((cost + COSTS[grid[next[0]][next[1]]], next))
       visited[next] = current
 
-def a_star():
+def a_star(grid, start, goal):
   pass
 
 def no_cost_search(grid, start, goal, enter, exit, is_empty):
@@ -71,7 +71,7 @@ def no_cost_search(grid, start, goal, enter, exit, is_empty):
 
 def neighbors(coordinate, low, high):
   x, y = coordinate
-  change = [ (0, 1), (1, 0), (-1, 0), (0, -1) ]
-  return [ (x + i, y + j) for i, j in change if x + i < high and x + i > low and y + j < high and y + j > low ]
+  delta = [ (0, 1), (1, 0), (-1, 0), (0, -1) ]
+  return [ (x + i, y + j) for i, j in delta if x + i < high and x + i > low and y + j < high and y + j > low ]
 
 
