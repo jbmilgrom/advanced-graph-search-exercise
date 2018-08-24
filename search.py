@@ -53,7 +53,23 @@ def ucs(grid, start, goal):
       visited[next] = current
 
 def a_star(grid, start, goal):
-  pass
+  length = len(grid)
+  visited = { start: 'START' }
+  pqueue = PriorityQueue()
+  pqueue.insert((0 + manhattan_distance_heuristic(start, goal), 0, start))
+  while not pqueue.is_empty():
+    _, cost, current = pqueue.next()
+    if grid[current[0]][current[1]] == G:
+        return visited
+    for next in neighbors(current, -1, length):
+      if visited.get(next):
+        continue
+      next_cost = cost + COSTS[grid[next[0]][next[1]]]
+      pqueue.insert((next_cost + manhattan_distance_heuristic(next, goal), next_cost, next))
+      visited[next] = current
+
+def manhattan_distance_heuristic(current, goal):
+   return abs(goal[0] - current[0]) + abs(goal[1] - current[1])
 
 def no_cost_search(grid, start, goal, enter, exit, is_empty):
   length = len(grid)
