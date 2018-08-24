@@ -65,7 +65,8 @@ def a_star(grid, start, goal):
       if visited.get(next):
         continue
       next_cost = cost + COSTS[grid[next[0]][next[1]]]
-      pqueue.insert((next_cost + manhattan_distance_heuristic(next, goal), next_cost, next))
+      heuristic = next_cost + manhattan_distance_heuristic(next, goal)
+      pqueue.insert((heuristic, next_cost, next))
       visited[next] = current
 
 def manhattan_distance_heuristic(current, goal):
