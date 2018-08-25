@@ -44,7 +44,8 @@ def a_star(grid, start, goal):
     grid,
     start,
     goal,
-    manhattan_distance_heuristic
+    # manhattan distance heuristic
+    lambda current, goal: abs(goal[0] - current[0]) + abs(goal[1] - current[1])
   )
 
 def _no_cost_search(grid, start, goal, insert_item_at_top_of_queue = False):
@@ -88,9 +89,6 @@ def _search(grid, start, goal, enter, exit, is_empty, step_cost, future_cost_heu
       heuristic = next_cost + future_cost_heuristic(next, goal)
       enter((heuristic, next_cost, next))
       visited[next] = current
-
-def manhattan_distance_heuristic(current, goal):
-   return abs(goal[0] - current[0]) + abs(goal[1] - current[1])
 
 def neighbors(coordinate, low, high):
   x, y = coordinate
