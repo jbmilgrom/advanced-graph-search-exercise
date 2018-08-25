@@ -12,7 +12,7 @@ from priority_queue import PriorityQueue
 #     (G): (G-1)
 #   }
 #   Neighbors are N,S,E,W of every node
-#   Breadth first search of neighbors, until G is found
+#   Breadth/Depth/Priority first search of neighbors, until G is found
 #     tracking visited nodes by whether or not dest:source combination has occured before
 
 def bfs(grid, start, goal):
